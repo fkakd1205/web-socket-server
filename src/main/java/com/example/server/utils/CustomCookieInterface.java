@@ -8,6 +8,4 @@ public interface CustomCookieInterface {
 
     final static boolean SECURE = false;    // http 통신 : false / https 통신 : true
 
-    final static Integer CSRF_TOKEN_COOKIE_EXPIRATION = 5; // seconds - 5s
-
 }

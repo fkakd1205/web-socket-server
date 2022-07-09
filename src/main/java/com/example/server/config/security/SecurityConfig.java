@@ -29,7 +29,10 @@ public class SecurityConfig {
 
         http
                 .authorizeRequests()
-                .antMatchers("/api/v1/user/login").permitAll()
+                .antMatchers(
+                        "/api/v1/user/login",
+                        "/api/v1/user/login-check"
+                ).permitAll()
                 .anyRequest().authenticated();
 
         http
