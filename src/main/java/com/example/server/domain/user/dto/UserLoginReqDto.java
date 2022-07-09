@@ -1,26 +1,17 @@
 package com.example.server.domain.user.dto;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import lombok.experimental.Accessors;
 
 @Getter
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Accessors(chain = true)
-public class UserDto {
-    private UUID id;
+public class UserLoginReqDto {
     private String username;
     private String password;
-    private String name;
-    private String role;
-    private LocalDateTime createdAt;
 }
