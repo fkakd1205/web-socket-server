@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -68,11 +69,21 @@ public class UserService implements UserDetailsService {
         throw new CustomInvalidUserException("login error.");
     }
 
+    public String getUserName() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        return userDetails.getUsername();
+    }
+
+    public String getName() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<UserEntity> userEntity = userRepository.findByUsername(userDetails.getUsername());
+        return userEntity.get().getName();
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("login error."));
         return new User(user.getUsername(), user.getPassword(), user.getAuthorities());
     }
-
-    
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.server.domain.chat_message.dto.ChatMessageDto;
+import com.example.server.domain.chat_message.server.ChatMessageService;
 import com.example.server.domain.message.dto.Message;
 
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/ws/v1/chat")
 @RequiredArgsConstructor
 public class ChatMessageController {
+    private final ChatMessageService chatMessageService;
     private final SimpMessagingTemplate simpMessagingTemplate;
 
     /*
@@ -30,6 +32,7 @@ public class ChatMessageController {
     public ResponseEntity<?> createChat(@RequestBody ChatMessageDto dto) {
         Message message = new Message();
 
+        message.setData(chatMessageService.sendMesasge(dto));
         message.setStatus(HttpStatus.OK);
         message.setMessage("success");
         message.setSocketMemo("새로운 메세지 도착!");
