@@ -57,4 +57,21 @@ public class ChatMessageController {
 
         return new ResponseEntity<>(message, message.getStatus());
     }
+
+    /*
+     * 파라미터로 넘어온 {channelId}와 동일한 채널에 접속한 유저에게 메세지 전달
+     */
+    @PostMapping("/message/channel/{channelId}")
+    public ResponseEntity<?> createChatToChannel(@PathVariable UUID channelId, @RequestBody ChatMessageDto dto) {
+        Message message = new Message();
+
+        message.setData(chatMessageService.sendMesasge(dto));
+        message.setStatus(HttpStatus.OK);
+        message.setMessage("success");
+        message.setSocketMemo("깨우기 알림!");
+
+        simpMessagingTemplate.convertAndSend("/topic/message/channel/" + channelId, message);
+
+        return new ResponseEntity<>(message, message.getStatus());
+    }
 } 

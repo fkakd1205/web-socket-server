@@ -1,5 +1,6 @@
 package com.example.server.domain.user.entity;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -56,7 +57,7 @@ public class UserEntity implements UserDetails {
     private String role;
 
     @Column(name = "created_at")
-    private String createdAt;
+    private LocalDateTime createdAt;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
